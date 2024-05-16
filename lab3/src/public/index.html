@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Реєстраційна служба клініки</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Ласкаво просимо до нашої клініки!</h1>
+        <button id="loginBtn">Вхід</button>
+        <button id="registerBtn">Реєстрація</button>
+    </header>
+
+    <main>
+        <div id="loginModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('loginModal')">&times;</span>
+                <h2>Вхід</h2>
+                <form id="loginForm">
+                    <label for="loginUsername">Ім'я користувача:</label>
+                    <input type="text" id="loginUsername" name="username" required>
+                    <label for="loginPassword">Пароль:</label>
+                    <input type="password" id="loginPassword" name="password" required>
+                    <button type="submit">Вхід</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="registerModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('registerModal')">&times;</span>
+                <h2>Реєстрація</h2>
+                <form id="registerForm">
+                    <label for="registerUsername">Ім'я користувача:</label>
+                    <input type="text" id="registerUsername" name="username" required>
+                    <label for="registerEmail">Електронна пошта:</label>
+                    <input type="email" id="registerEmail" name="email" required>
+                    <label for="registerPassword">Пароль:</label>
+                    <input type="password" id="registerPassword" name="password" required>
+                    <button type="submit">Зареєструватися</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="updateDoctorModal" class="modal" style="display:none;">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('updateDoctorModal')">&times;</span>
+                <h2>Оновити лікаря</h2>
+                <form id="updateDoctorForm">
+                    <input type="hidden" id="updateDoctorId">
+                    <label for="updateDoctorName">Ім'я:</label>
+                    <input type="text" id="updateDoctorName" name="name" required>
+                    <label for="updateDoctorSpecialization">Спеціалізація:</label>
+                    <input type="text" id="updateDoctorSpecialization" name="specialization" required>
+                    <button type="submit">Оновити лікаря</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="adminSection" style="display:none;">
+            <div class="modal-content">
+                <h2>Панель адміністратора</h2>
+                <p>Ласкаво просимо до Панелі адміністратора!</p>
+
+                <h3>Додати нового лікаря</h3>
+                <form id="addDoctorForm">
+                    <input type="text" id="doctorName" placeholder="Ім'я" required>
+                    <input type="text" id="doctorSpecialization" placeholder="Спеціалізація" required>
+                    <button type="submit">Додати лікаря</button>
+                </form>
+
+                <h3>Список лікарів</h3>
+                <ul id="doctorsList"></ul>
+            </div>
+        </div>
+
+        <div id="userSection" style="display:none;">
+            <div class="modal-content">
+                <h2>Панель користувача</h2>
+                <p>Ласкаво просимо до вашої Панелі керування!</p>
+
+                <h3>Запишіться на прийом</h3>
+                <form id="appointmentForm">
+                    <label for="doctorSelect">Оберіть лікаря:</label>
+                    <select id="doctorSelect" required>
+                    </select>
+                    <label for="appointmentTime">Оберіть дату та час:</label>
+                   <input type="datetime-local" id="appointmentTime" name="appointmentTime" required>
+                    <label for="appointmentDuration">Тривалість (хвилин):</label>
+                    <input type="number" id="appointmentDuration" name="duration" required>
+                    <button type="button" onclick="fetchOccupiedTimes()">Перевірити зайнятий час</button>
+                    <button type="submit">Записатися</button>
+                </form>
+
+                <ul id="occupiedTimesList"></ul>
+
+                <h3>Ваш профіль</h3>
+                <button onclick="viewUserProfile()">Переглянути профіль</button>
+                <button onclick="loadUserAppointments()">Переглянути записи</button>
+
+                <div id="profileInfo" style="display:none;">
+                    <h3>Інформація профілю</h3>
+                    <p>Ім'я користувача: <span id="profileUsername"></span></p>
+                    <p>Електронна пошта: <span id="profileEmail"></span></p>
+                    <button onclick="showUpdateProfileForm()">Оновити профіль</button>
+                </div>
+
+                <div id="updateProfileForm" style="display:none;">
+                    <h3>Оновити профіль</h3>
+                    <form id="updateUserProfileForm">
+                        <label for="updateProfileUsername">Ім'я користувача:</label>
+                        <input type="text" id="updateProfileUsername" name="username" required>
+                        <label for="updateProfileEmail">Електронна пошта:</label>
+                        <input type="email" id="updateProfileEmail" name="email" required>
+                        <label for="updateProfilePassword">Новий пароль:</label>
+                        <input type="password" id="updateProfilePassword" name="password">
+                        <button type="submit">Оновити профіль</button>
+                    </form>
+                </div>
+
+                <h3>Ваші записи</h3>
+                <ul id="appointmentsList"></ul>
+            </div>
+        </div>
+
+        <footer>
+            <p>Зв'яжіться з нами: info@clinic.com</p>
+        </footer>
+    </main>
+    <script src="/static/scripts.js"></script>
+</body>
+</html>
