@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Реєстраційна служба клініки</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Ласкаво просимо до нашої клініки!</h1>
+        <button id="loginBtn" onclick="window.location.href='/login_page/'">Вхід</button>
+        <button id="aboutBtn" onclick="window.location.href='/info/'">Інформація</button>
+        <button id="registerBtn" onclick="window.location.href='/register_page/'">Реєстрація</button>
+    </header>
+
+    <main>
+
+    </main>
+
+    <footer>
+        <p>Зв'яжіться з нами: info@clinic.com</p>
+    </footer>
+
+    <script src="{% static 'scripts.js' %}"></script>
+</body>
+</html>

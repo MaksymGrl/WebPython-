@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вхід</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Вхід</h1>
+        <button onclick="window.location.href='/'">Головна</button>
+    </header>
+
+    <main>
+        <input type="text" id="loginUsername" placeholder="Ім'я користувача" required>
+        <input type="password" id="loginPassword" placeholder="Пароль" required>
+        <button onclick="login()">Вхід</button>
+    </main>
+
+    <footer>
+        <p>Зв'яжіться з нами: info@clinic.com</p>
+    </footer>
+
+    <script>
+        function login() {
+            const username = document.getElementById('loginUsername').value;
+            const password = document.getElementById('loginPassword').value;
+            window.location.href = `/login/${username}/${password}/`;
+        }
+    </script>
+</body>
+</html>

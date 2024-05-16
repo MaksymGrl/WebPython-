@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Реєстрація</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Реєстрація</h1>
+        <button onclick="window.location.href='/'">Головна</button>
+    </header>
+
+    <main>
+        <div class="modal-content">
+            <h2>Реєстрація</h2>
+            <input type="text" id="registerUsername" placeholder="Ім'я користувача" required>
+            <input type="email" id="registerEmail" placeholder="Електронна пошта" required>
+            <input type="password" id="registerPassword" placeholder="Пароль" required>
+            <button onclick="register()">Реєстрація</button>
+        </div>
+    </main>
+
+    <footer>
+        <p>Зв'яжіться з нами: info@clinic.com</p>
+    </footer>
+
+    <script>
+        function register() {
+            const username = document.getElementById('registerUsername').value;
+            const email = document.getElementById('registerEmail').value;
+            const password = document.getElementById('registerPassword').value;
+            window.location.href = `/register/${username}/${email}/${password}/`;
+        }
+    </script>
+</body>
+</html>

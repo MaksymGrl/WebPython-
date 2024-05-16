@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Панель адміністратора</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Панель адміністратора</h1>
+        <button onclick="window.location.href='/'">Головна</button>
+    </header>
+
+    <main>
+        <h2>Панель адміністратора</h2>
+        <p>Ласкаво просимо до Панелі адміністратора!</p>
+
+        <h3>Додати нового лікаря</h3>
+        <input type="text" id="doctorName" placeholder="Ім'я" required>
+        <input type="text" id="doctorSpecialization" placeholder="Спеціалізація" required>
+        <button onclick="addDoctor()">Додати лікаря</button>
+
+        <h3>Список лікарів</h3>
+        <ul id="doctorsList">
+            {% for doctor in doctors %}
+            <li>
+                {{ doctor.name }} - {{ doctor.specialization }}
+                <button onclick="deleteDoctor({{ doctor.id }})">Видалити</button>
+                <button onclick="openUpdateForm({{ doctor.id }}, '{{ doctor.name }}', '{{ doctor.specialization }}')">Оновити</button>
+            </li>
+            {% endfor %}
+        </ul>
+
+        <div id="updateDoctorModal" class="modal" style="display:none;">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('updateDoctorModal')">&times;</span>
+                <h2>Оновити лікаря</h2>
+                <input type="hidden" id="updateDoctorId">
+                <label for="updateDoctorName">Ім'я:</label>
+                <input type="text" id="updateDoctorName" required>
+                <label for="updateDoctorSpecialization">Спеціалізація:</label>
+                <input type="text" id="updateDoctorSpecialization" required>
+                <button onclick="updateDoctor()">Оновити лікаря</button>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>Зв'яжіться з нами: info@clinic.com</p>
+    </footer>
+
+    <script>
+        function addDoctor() {
+            const name = document.getElementById('doctorName').value;
+            const specialization = document.getElementById('doctorSpecialization').value;
+            window.location.href = `/add_doctor/${name}/${specialization}/`;
+        }
+
+        function deleteDoctor(doctorId) {
+            window.location.href = `/delete_doctor/${doctorId}/`;
+        }
+
+        function openUpdateForm(id, name, specialization) {
+            document.getElementById('updateDoctorId').value = id;
+            document.getElementById('updateDoctorName').value = name;
+            document.getElementById('updateDoctorSpecialization').value = specialization;
+            document.getElementById('updateDoctorModal').style.display = 'block';
+        }
+
+        function updateDoctor() {
+            const id = document.getElementById('updateDoctorId').value;
+            const name = document.getElementById('updateDoctorName').value;
+            const specialization = document.getElementById('updateDoctorSpecialization').value;
+            window.location.href = `/update_doctor/${id}/${name}/${specialization}/`;
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('updateDoctorModal')) {
+                closeModal('updateDoctorModal');
+            }
+        }
+    </script>
+</body>
+</html>
